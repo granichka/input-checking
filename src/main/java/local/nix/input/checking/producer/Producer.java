@@ -5,9 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.*;
 
-public class Producer{
+public class Producer implements Runnable {
 
-    private ExecutorService es = Executors.newFixedThreadPool(1);
     private BlockingQueue<String> queue;
 
 
@@ -16,25 +15,21 @@ public class Producer{
     }
 
 
-    private Runnable task = () -> {
+    @Override
+    public void run() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
 
             while (true) {
                 String input = br.readLine();
                 queue.put(input);
                 if ("quit".equals(input)) {
-                    es.shutdown();
                     break;
                 }
             }
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            }
         }
-    };
-
-    public void start() {
-
-        es.execute(task);
     }
-}
+
