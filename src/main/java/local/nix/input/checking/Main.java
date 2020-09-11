@@ -11,8 +11,10 @@ public class Main {
 
         BlockingQueue<String> queue = new LinkedBlockingQueue<>();
 
-        new Producer(queue).start();
+        new Thread(new Producer(queue)).start();
         new Consumer(queue).start();
+
+
 
 
     }
