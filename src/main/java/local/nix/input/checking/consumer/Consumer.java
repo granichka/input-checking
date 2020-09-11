@@ -10,7 +10,6 @@ public class Consumer {
 
     private ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
     private BlockingQueue<String> queue;
-    private ScheduledFuture<?> scheduledFuture;
     private File output = new File("output.txt");
     private String inputToCheck;
 
@@ -55,7 +54,7 @@ public class Consumer {
 
     public void start() {
 
-        scheduledFuture = ses.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
+        ses.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
     }
 
 
